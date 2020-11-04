@@ -1,12 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=:$HOME/bin:/usr/local/bin:$PATH:~/Library/Python/2.7/bin:$PATH
-export PATH=/Users/devbytom/plugins:$PATH
-export PATH=/Users/devbytom/Library/Python/3.7/bin:$PATH
+export PATH=/home/tom/plugins:$PATH
+export PATH=/home/tom/Library/Python/3.7/bin:$PATH
 #export EDITOR=/usr/local/bin/emacs
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/devbytom/.oh-my-zsh"
+export ZSH="/home/tom/.oh-my-zsh"
 
-export GOPATH=/Users/devbytom/go
+export GOPATH=/home/tom/go
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -119,10 +119,10 @@ ecrlogin(){
 }
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/devbytom/plugins/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/devbytom/plugins/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/tom/plugins/google-cloud-sdk/path.zsh.inc' ]; then . '/home/tom/plugins/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/devbytom/plugins/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/devbytom/plugins/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/home/tom/plugins/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/tom/plugins/google-cloud-sdk/completion.zsh.inc'; fi
 
 myip(){
   curl -s https://ipinfo.io/json | jq .ip | sed -e 's/\"//g' | pbcopy
