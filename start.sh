@@ -1,5 +1,19 @@
 #!/bin/bash
 
+sudo yum groupinstall 'Development Tools'
+
+sudo yum install curl file git
+
+sudo yum install libxcrypt-compat
+
+git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+
+mkdir ~/.linuxbrew/bin
+
+ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+
+eval $(~/.linuxbrew/bin/brew shellenv)
+
 sudo dnf -y install dnf-plugins-core
 
 sudo dnf config-manager \
@@ -35,4 +49,8 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+curl https://github.com/99designs/aws-vault/releases/download/v6.2.0/aws-vault-linux-amd64 -o ~/bin/aws-vault
+chmod +x ~/bin/aws-vault
+
 
