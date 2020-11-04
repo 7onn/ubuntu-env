@@ -104,6 +104,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+eval $(~/.linuxbrew/bin/brew shellenv)
+
 alias tf="aws-vault exec terraform -- terraform"
 
 export NVM_DIR="$HOME/.nvm"
