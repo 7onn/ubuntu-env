@@ -16,3 +16,8 @@ sudo dnf install snapd
 sudo ln -s /var/lib/snapd/snap /snap
 
 sudo snap install authy --beta
+
+sudo yum install zsh
+
+echo 'exec zsh' >> ~/.bashrc
+
