@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp .vimrc ~/.vimrc
+
 sudo yum groupinstall 'Development Tools'
 
 sudo yum install curl file git
@@ -13,6 +15,10 @@ mkdir ~/.linuxbrew/bin
 ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
 
 eval $(~/.linuxbrew/bin/brew shellenv)
+
+brew install gh
+
+brew install aws-vault
 
 sudo dnf -y install dnf-plugins-core
 
@@ -50,7 +56,6 @@ ssh-add ~/.ssh/id_rsa
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-curl https://github.com/99designs/aws-vault/releases/download/v6.2.0/aws-vault-linux-amd64 -o ~/bin/aws-vault
-chmod +x ~/bin/aws-vault
+sudo dnf install -y nodejs npm
 
-
+sudo npm install -g nvm
