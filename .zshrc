@@ -129,3 +129,7 @@ if [ -f '/home/tom/plugins/google-cloud-sdk/completion.zsh.inc' ]; then . '/home
 myip(){
   curl -s https://ipinfo.io/json | jq .ip | sed -e 's/\"//g' | pbcopy
 }
+
+sshls(){
+  for key in ~/.ssh/id_*; do ssh-keygen -l -f "${key}"; done | uniq
+}
