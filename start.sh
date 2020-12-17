@@ -59,3 +59,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sudo dnf install -y nodejs npm
 
 sudo npm install -g nvm
+
+sudo dnf install xclip xsel
+
