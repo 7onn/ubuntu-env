@@ -7,6 +7,7 @@ export PATH=/home/tom/Library/Python/3.7/bin:$PATH
 export ZSH="/home/tom/.oh-my-zsh"
 
 export GOPATH=/home/tom/go
+export GOBIN=/home/tom/go/bin
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
