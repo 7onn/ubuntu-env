@@ -66,3 +66,11 @@ myip(){
 sshls(){
   for key in ~/.ssh/id_*; do ssh-keygen -l -f "${key}"; done | uniq
 }
+
+getsecret(){
+  echo -n $1 | base64 -d | pbcopy
+}
+
+setsecret(){
+  echo -n $1 | base64 | pbcopy
+}
