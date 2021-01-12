@@ -22,13 +22,12 @@ brew install aws-vault
 
 sudo dnf -y install dnf-plugins-core
 
-sudo dnf config-manager \
-    --add-repo \
-    https://download.docker.com/linux/fedora/docker-ce.repo
- 
-sudo dnf install docker-ce docker-ce-cli containerd.io
+curl https://download.docker.com/linux/fedora/33/x86_64/stable/Packages/docker-ce-20.10.2-3.fc33.x86_64.rpm -o docker-ce.rpm
+
+sudo dnf -y install docker-ce.rpm
 
 curl https://az764295.vo.msecnd.net/stable/d2e414d9e4239a252d1ab117bd7067f125afd80a/code-1.50.1-1602601064.el7.x86_64.rpm -o code.rpm
+
 sudo dnf install code.rpm
 
 sudo dnf install snapd
