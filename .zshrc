@@ -15,7 +15,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export EDITOR='vim'
 
-ZSH_THEME="candy"
+ZSH_THEME="muse"
 #ZSH_THEME="reggae"
 
 plugins=(git)
