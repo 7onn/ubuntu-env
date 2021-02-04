@@ -2,8 +2,6 @@
 export PATH=:$HOME/bin:/usr/local/bin:$PATH:~/Library/Python/2.7/bin:$PATH
 export PATH=/home/tom/plugins:$PATH
 export PATH=/home/tom/Library/Python/3.7/bin:$PATH
-#export EDITOR=/usr/local/bin/emacs
-# Path to your oh-my-zsh installation.
 export ZSH="/home/tom/.oh-my-zsh"
 
 export GOPATH=/home/tom/go
@@ -13,7 +11,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export EDITOR='vim'
+export EDITOR='emacs'
 
 ZSH_THEME="muse"
 #ZSH_THEME="reggae"
