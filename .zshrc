@@ -12,9 +12,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export EDITOR='emacs'
+export HOST='cosmos'
 
-ZSH_THEME="muse"
-#ZSH_THEME="reggae"
+#ZSH_THEME="muse"
+ZSH_THEME="steeef"
 
 plugins=(git)
 
