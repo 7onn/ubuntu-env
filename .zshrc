@@ -28,7 +28,7 @@ xmodmap ~/.xmodmaprc
 alias tf="aws-vault exec terraform -- terraform"
 alias k='kubectl'
 alias kubectx='kubectl config use-context'
-alias knodes='kubectl get nodes --sort-by='.metadata.creationTimestamp' | grep -v monit | grep node' 
+alias knodes="kubectl get nodes --sort-by='.metadata.creationTimestamp' | grep -v monit | grep node"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
