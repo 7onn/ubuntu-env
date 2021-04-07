@@ -12,3 +12,6 @@
     lonely = clone --single-branch --branch
     plg = log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative
     fresh = filter-branch --prune-empty --subdirectory-filter
+
+[pull]
+        rebase = false
