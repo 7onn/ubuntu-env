@@ -1,0 +1,142 @@
+---
+- become: yes
+  hosts: all
+  name: cosmos
+  tasks:
+    - name: include vars
+      include_vars: playbook.vars.yml
+
+    - name: add host
+      become: yes
+      become_user: root
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ ansible_host }} {{ hostname }}"
+        create: yes
+
+    - name: add the user 'tom' and add it to 'sudo'
+      become: yes
+      become_user: root
+      user:
+        name: tom
+        group: sudo
+
+    - name: update all packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: install system packages
+      apt: 
+        name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common', 'python', 'python3-pip', 'virtualenv', 'python3-setuptools', 'jq']
+        state: latest 
+
+    - name: install bash, git, tree, OpenSSl, libssl and psql
+      apt: 
+        name: ['bash', 'git', 'tree', 'nmap', 'lsof', 'openssl', 'libssl-dev', 'libssl-doc', 'libseccomp2', 'postgresql-client']
+        state: latest
+
+    - name: download containerd
+      get_url: 
+        url: https://download.docker.com/linux/debian/dists/buster/pool/stable/amd64/containerd.io_1.4.3-1_amd64.deb
+        dest: "{{ home }}/containerd.io_1.4.3-1_amd64.deb" 
+
+    - name: install containerd
+      apt:
+        deb: "{{ home }}/containerd.io_1.4.3-1_amd64.deb" 
+
+    - name: add docker GPG apt key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: add docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+        state: present
+
+    - name: index new repo into the cache
+      become: yes
+      apt:
+        update_cache: yes
+        name: "*"
+        state: latest
+        force_apt_get: yes
+
+    - name: update apt and install docker-ce
+      apt:
+        name: docker-ce 
+        state: latest
+
+    - name: add the user 'tom' and add it to 'docker'
+      user:
+        name: tom
+        group: docker
+
+    - name: install python packages
+      pip:
+        name: 
+          - docker
+          - awscli
+          - yq
+
+    - name: install docker-compose
+      get_url: 
+        url : https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 0755
+
+    - name: install zsh
+      apt:
+        name: zsh
+        state: latest
+    
+    - name: get terraform
+      get_url:
+        url: https://releases.hashicorp.com/terraform/0.14.7/terraform_0.14.7_linux_amd64.zip
+        dest: "{{ download_folder }}terraform_0.14.7_linux_amd64.zip"
+    
+    - name: install terraform
+      unarchive:
+        src: "{{ download_folder }}terraform_0.14.7_linux_amd64.zip"
+        dest: "/usr/local/bin"
+        mode: 0755
+
+    - name: install aws-vault
+      get_url:
+        url: https://github.com/99designs/aws-vault/releases/download/v6.3.1/aws-vault-linux-amd64
+        dest: "/usr/local/bin/aws-vault"
+        mode: 0755
+
+    - name: install aws-cli
+      pip:
+        name: awscli
+    
+    - name: get slack
+      get_url:
+        url: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.14.0-amd64.deb
+        dest: "/home/tom/Downloads/slack-desktop-4.14.0-amd64.deb"
+
+    - name: install slack
+      apt:
+        deb: "/home/tom/Downloads/slack-desktop-4.14.0-amd64.deb"
+    
+    - name: install kubectl
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+        dest: "/usr/local/bin/kubectl"
+        mode: 0755
+
+
+    #- name: get kahlo.cc source code
+    #  become_user: tom
+    #  git:
+    #    repo: https://github.com/tompsh/kahlo.cc.git
+    #    dest: "{{ home }}/kahlo.cc"
+    #    version: main
+
+    - name: set hostname
+      become: yes
+      hostname:
+        name: "{{ hostname }}"
