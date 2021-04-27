@@ -226,6 +226,34 @@
       args:
         executable: /bin/bash
 
+    - name: get halyard
+      get_url:
+        url: https://raw.githubusercontent.com/spinnaker/halyard/master/install/macos/InstallHalyard.sh
+        dest: "{{ downloads_folder }}InstallHalyard.sh"
+        mode: 0700
+
+    - name: install halyard
+      shell: "{{ downloads_folder }}InstallHalyard.sh"
+      args:
+        executable: /bin/bash
+      failed_when: false
+
+    - name: get golang
+      get_url:
+        url: https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
+        dest: "{{ downloads_folder }}go1.16.3.linux-amd64.tar.gz"
+
+    - name: extract golang
+      unarchive:
+        src: "{{ downloads_folder }}go1.16.3.linux-amd64.tar.gz"
+        dest: "{{ downloads_folder }}"
+
+    - name: install golang
+      copy:
+        src: "{{ downloads_folder }}go/bin/"
+        dest: /usr/local/bin/
+        mode: 0755
+
     - name: set hostname
       become: yes
       hostname:
