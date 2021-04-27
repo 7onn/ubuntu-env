@@ -1,4 +1,6 @@
 home: /home/{{ ansible_ssh_user }}
 ssh: "/home/tom/.ssh/id_rsa"
 hostname: cosmos
-download_folder: /home/tom/Downloads/
+downloads_folder: /home/tom/Downloads/playbook/
+os_release_codename: focal
+
