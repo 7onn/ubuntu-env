@@ -1,6 +1,6 @@
 [user]
 	email = devbytom@gmail.com
-	name = devbytom
+	name = tompsh
 
 [alias]
     recommit = commit --amend -m
