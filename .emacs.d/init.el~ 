@@ -38,8 +38,8 @@
 
 (require 'spotify)
 
-(setq spotify-oauth2-client-secret "")
-(setq spotify-oauth2-client-id "")
+(setq spotify-oauth2-client-secret "x")
+(setq spotify-oauth2-client-id "X")
 (define-key spotify-mode-map (kbd "C-c .") 'spotify-command-map)
 (setq spotify-transport 'connect)
 (setq spotify-player-status-refresh-interval 10)
