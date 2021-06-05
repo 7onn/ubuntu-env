@@ -46,6 +46,16 @@
     mode: '0755'
   loop: '{{ user_extra_home_dirs }}'
 
+- name: Add playbook downloads directory
+  become: yes
+  become_user: '{{ user_name }}'
+  file:
+    path: '/home/{{ user_name }}/Downloads/playbook'
+    state: directory
+    owner: '{{ user_name }}'
+    group: '{{ user_group }}'
+    mode: '0755'
+
 - name: Add home .config directory
   become: yes
   become_user: '{{ user_name }}'
@@ -87,3 +97,13 @@
     - .bash_profile
     - .bashrc
     - .Xmodmap
+
+- name: Add user .ssh configuration file
+  become: yes
+  become_user: '{{ user_name }}'
+  copy:
+    src: 'home/.ssh/config'
+    dest: '/home/{{ user_name }}/.ssh/config'
+    owner: '{{ user_name }}'
+    group: '{{ user_group }}'
+    mode: '0644'
