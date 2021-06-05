@@ -1,0 +1,22 @@
+#
+# User data
+#
+
+# user_name: tom
+# user_group: tom
+
+# user_full_name: tom
+
+# user_github_username: tompsh
+# user_github_email: devbytom@gmail.com
+
+# user_github_gnupg_sign: false
+# user_gnupg_key_id: '0x9999999999999999'
+
+
+#
+# OS data
+#
+
+# os_release_codename: focal
+# terraform_version: 0.14.7

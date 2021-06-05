@@ -19,6 +19,9 @@ user_create_ssh_keypair: no
 user_extra_home_dirs:
   - w
   - l
+  - go/bin
+  - go/src
+  - go/pkg
 
 system_timezone: America/Sao_Paulo
 system_locale: en_US.UTF-8
@@ -36,3 +39,6 @@ system_dns_dnssec: yes
 ##
 ## dev
 ##
+
+os_release_codename: focal
+terraform_version: 0.14.7

@@ -1,21 +1,34 @@
 # dotfiles
-still on development but the purpose of this repository is to hold all of my configuration files and their installation scripts
+This repository contains the ansible playbook files to setup my ubuntu workstation 
+
+## Requirements
 
 ```bash
-sudo apt update && sudo apt install openssh-server sshpass
-eval $(ssh-agent)
-ssh-add ~/.ssh/id_rsa
-ssh-copy-id tom@cosmos
+sudo apt update && \
+  sudo apt install openssh-server sshpass ansible && \
+  eval $(ssh-agent)
 
 sudo ufw allow ssh && \
-    sudo ufw enable
-
-sudo apt install ansible
-ansible-playbook -kK \
-    -u tom \
-    -i 'localhost,' \
-    playbook.yml --extra-vars "@vars/ansible.yml"
-
-
-sudo snap install authy --beta
+  sudo ufw enable
 ```
+
+## Run Locally
+```bash
+git clone https://github.com/tompsh/dotfiles && cd dotfiles
+```
+
+```bash
+# Edit the variables accordingly
+$EDITOR vars/ansible.yml
+```
+
+```bash
+# Run the playbook
+ansible-playbook -kK \
+  -u $(whoami) \
+  -i 'localhost,' \
+  --extra-vars "@vars/ansible.yml" playbook.yml
+```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

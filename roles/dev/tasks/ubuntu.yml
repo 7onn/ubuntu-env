@@ -1,0 +1,208 @@
+- name: Add Brave gpg
+  become: yes
+  get_url:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+
+- name: Add Google gpg
+  become: yes
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/cloud.google.gpg
+
+- name: Add Hashicorp gpg
+  become: yes
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: Add Brave repo
+  become: yes
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
+    state: present
+    filename: brave-browser-release.list
+
+- name: Add Hashicorp repo
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ os_release_codename }} main"
+    state: present
+
+- name: Add Google repo
+  become: yes
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+    state: present
+    filename: google-cloud-sdk.list
+
+- name: Update all packages
+  become: yes
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install packages
+  become: yes
+  apt:
+    state: present
+    name:
+      - ansible-lint
+      - apt-transport-https
+      - bash
+      - brave-browser
+      - ca-certificates
+      - containerd
+      - curl
+      - docker-compose
+      - dnsutils
+      - emacs
+      - jq
+      - kubectl
+      - leiningen
+      - libssl-dev
+      - libssl-doc
+      - libseccomp2
+      - lsof
+      - git
+      - gnome-tweaks
+      - gnome-tweak-tool
+      - gnupg
+      - gnupg2
+      - go-dep
+      - google-cloud-sdk
+      - nmap
+      - openssl
+      - packer
+      - postgresql-client
+      - python
+      - python3-pip
+      - python3-setuptools
+      - software-properties-common
+      - tmux
+      - traceroute
+      - tree
+      - vim
+      - virtualenv
+      - xclip
+      - zsh
+
+- name: Ensure docker GPG key
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Ensure docker repository
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- name: Index docker repo into cache
+  become: yes
+  apt:
+    update_cache: yes
+    name: "*"
+    state: present
+    force_apt_get: yes
+  failed_when: false
+
+- name: Install docker-ce
+  become: yes
+  apt:
+    name: docker-ce
+    state: present
+
+- name: Add the user 'tom' and add it to 'docker'
+  become: yes
+  user:
+    name: "{{ user_name }}"
+    group: docker
+
+- name: Install python packages
+  pip:
+    name:
+    - docker
+    - yq
+    - awscli
+
+- name: Get Terraform
+  become: yes
+  get_url:
+    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+    dest: "/home/{{ user_name }}/Downloads/playbook/terraform_{{ terraform_version }}_linux_amd64.zip"
+    mode: 0744
+
+- name: Install Terraform
+  become: yes
+  unarchive:
+    src: "/home/{{ user_name }}/Downloads/playbook/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: "/usr/local/bin"
+    mode: 0755
+
+- name: Install aws-vault
+  become: yes
+  get_url:
+    url: https://github.com/99designs/aws-vault/releases/download/v6.3.1/aws-vault-linux-amd64
+    dest: "/usr/local/bin/aws-vault"
+    mode: 0755
+
+- name: Get Slack
+  become: yes
+  get_url:
+    url: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.14.0-amd64.deb
+    dest: "/home/{{ user_name }}/Downloads/playbook/slack-desktop-4.14.0-amd64.deb"
+    mode: 0755
+
+- name: Install Slack
+  become: yes
+  apt:
+    deb: "/home/{{ user_name }}/Downloads/playbook/slack-desktop-4.14.0-amd64.deb"
+  failed_when: false
+
+- name: Get git-crypt
+  become: yes
+  get_url:
+    url: https://www.agwa.name/projects/git-crypt/downloads/git-crypt-0.6.0.tar.gz
+    dest: "/home/{{ user_name }}/Downloads/playbook/git-crypt-0.6.0.tar.gz"
+    mode: 0744
+
+- name: Unzip git-crypt
+  become: yes
+  unarchive:
+    src: "/home/{{ user_name }}/Downloads/playbook/git-crypt-0.6.0.tar.gz"
+    dest: "/home/{{ user_name }}/Downloads/playbook/"
+
+- name: Bake git-crypt
+  become: yes
+  make:
+    chdir: "/home/{{ user_name }}/Downloads/playbook/git-crypt-0.6.0"
+
+- name: Build git-crypt
+  become: yes
+  make:
+    chdir: "/home/{{ user_name }}/Downloads/playbook/git-crypt-0.6.0"
+    target: install
+
+- name: Install git-crypt
+  become: yes
+  become_user: '{{ user_name }}'
+  copy:
+    src: "/home/{{ user_name }}/Downloads/playbook/git-crypt-0.6.0/git-crypt"
+    dest: /usr/local/bin/git-crypt
+    mode: 0755
+
+- name: Get go
+  become: yes
+  get_url:
+    url: https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
+    dest: "/home/{{ user_name }}/Downloads/playbook/go1.16.3.linux-amd64.tar.gz"
+
+- name: Extract go
+  become: yes
+  unarchive:
+    src: "/home/{{ user_name }}/Downloads/playbook/go1.16.3.linux-amd64.tar.gz"
+    dest: /usr/local
+    mode: 0755

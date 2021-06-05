@@ -1,0 +1,5 @@
+- name: User dev configuration
+  import_tasks: user.yml
+
+- name: Ubuntu dev configuration
+  import_tasks: ubuntu.yml
