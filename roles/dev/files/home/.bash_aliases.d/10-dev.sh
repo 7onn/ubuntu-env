@@ -19,7 +19,7 @@ alias httpserver='python -m http.server'
 # Usage: cat file.json | asjson
 alias json_pp='python -mjson.tool'
 
-alias b='xmodmap /home/tom/.xmodmaprc'
+alias b='xmodmap /home/tom/.Xmodmap'
 alias k='kubectl'
 alias kv4='kubectl config use-context k8s-v4.descomplica.io'
 alias kv5='kubectl config use-context k8s-v5.us.descomplica.io'
