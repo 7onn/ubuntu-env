@@ -87,7 +87,6 @@
       - virtualenv
       - xclip
       - zsh
-      - zsh-syntax-highlighting
 
 - name: Ensure docker GPG key
   become: yes
