@@ -64,3 +64,7 @@ kmsencrypt(){
     --output text \
     --query CiphertextBlob
 }
+
+flushevicted() {
+  kubectl -n $1 get pods | grep Evicted | awk '{print $1}' | xargs kubectl -n $1 delete pod
+}
