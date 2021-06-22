@@ -65,6 +65,7 @@
       - libssl-doc
       - libseccomp2
       - lsof
+      - gimp
       - git
       - gnome-tweaks
       - gnome-tweak-tool
