@@ -84,6 +84,7 @@
       - tmux
       - traceroute
       - tree
+      - vault
       - vim
       - virtualenv
       - xclip
