@@ -73,6 +73,7 @@
       - gnupg2
       - go-dep
       - google-cloud-sdk
+      - net-tools
       - nmap
       - openssl
       - packer
