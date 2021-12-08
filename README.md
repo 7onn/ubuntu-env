@@ -1,5 +1,5 @@
 # dotfiles
-This repository contains the ansible playbook files to setup my ubuntu workstation 
+This repository contains the ansible playbook files to setup my Ubuntu desktop 
 
 ## Requirements
 
